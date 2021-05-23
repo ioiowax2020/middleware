@@ -20,7 +20,11 @@ app.use((req, res, next) => {
 
   console.log(`${splitDate[0]}  ${splitTime[0]} |  ${Methods} from ${urlbase}`)
 
+  const resDate = new Date()
 
+  console.log(`${splitDate[0]}  ${splitTime[0]} |  ${Methods} from ${urlbase}` + 'total time: ' + `${resDate - reqDate}ms`)
+
+  next()
 
 })
 
