@@ -50,19 +50,3 @@ app.listen(port, () => {
   console.log(`App running on port ${port}`)
 })
 
-
-function currentTime(res, req, next) {
-  const nowDate = new Date()
-
-  const tolocalstring = nowDate.toISOString()
-  const totimeString = nowDate.toTimeString()
-  const Methods = req.method
-  const urlbase = req.originalUrl
-
-  let splitTime = totimeString.split(' ')
-  let splitDate = tolocalstring.split('T')
-
-  const formalTime = (`${splitDate[0]}  ${splitTime[0]} |  ${Methods} from ${urlbase}$`)
-  console.log(formalTime)
-
-}
