@@ -6,23 +6,27 @@ const port = 3000
 
 app.use((req, res, next) => {
 
-  const reqDate = new Date()
+  const reqTime = new Date()
 
 
-  const tolocalstring = reqDate.toISOString()
-  const totimeString = reqDate.toTimeString()
-  const Methods = req.method
-  const urlbase = req.originalUrl
+  const toLocalstring = reqTime.toISOString()
+  const toTimeString = reqTime.toTimeString()
+  const methods = req.method
+  const urlBase = req.originalUrl
 
-  let splitTime = totimeString.split(' ')
-  let splitDate = tolocalstring.split('T')
+  let splitTime = toTimeString.split(' ')
+  let splitDate = toLocalstring.split('T')
 
 
-  console.log(`${splitDate[0]}  ${splitTime[0]} |  ${Methods} from ${urlbase}`)
+  console.log(`${splitDate[0]}  ${splitTime[0]} |  ${methods} from ${urlBase}`)
 
-  const resDate = new Date()
-
-  console.log(`${splitDate[0]}  ${splitTime[0]} |  ${Methods} from ${urlbase}` + 'total time: ' + `${resDate - reqDate}ms`)
+  res.on('finish', (req, res) => {
+    const resTime = new Date()
+    console.log(`${splitDate[0]}  ${splitTime[0]} |  ${methods} from ${urlBase}` + 'total time: ' + `${resTime - reqTime}ms`)
+  })
+  res.on('close', (req, res) => {
+    console.log('Respone is close.')
+  })
 
   next()
 
@@ -49,4 +53,3 @@ app.get('/:id', (req, res) => {
 app.listen(port, () => {
   console.log(`App running on port ${port}`)
 })
-
